@@ -1,0 +1,87 @@
+body{
+	height: 100vh;
+	background-image: url('../assets/img/bg.svg');
+	background-size: cover;
+	background-repeat: no-repeat;
+	background-position: center;
+	background-attachment: fixed;
+	color:white;
+	font-family: arial, sans-serif;
+	justify-content: center;
+	align-items: center;
+}
+
+#container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: auto; 
+    margin: 0 auto;
+}
+
+#savedCards-table{
+	display: inline-block;
+	background: #005BFF;
+	padding: 20px;
+	border-radius: 15px;
+	margin: 20px;
+}
+
+#tableHead-content{
+	background-color: rgba(2, 0, 36, 0.5);
+}
+
+#savedCards-table th{
+	padding: 20px;
+}
+
+#savedCards-table tr td{
+	padding: 20px;
+}
+
+#savedCards-table #card-row:nth-child(2n+1){
+	background-color: rgba(142, 142, 244, 0.75);
+}
+
+button{
+	padding: 5px;
+	border-style: none; 
+	border-radius: 2px;
+	color: white;
+	cursor: pointer;
+}
+
+#modifiyPrice-btn{
+	background-color: #c5692c;
+}
+
+#deleteCard-btn{
+	background-color: #ce0005;
+}
+
+#cancel-btn{
+	background-color: #0080c0;
+}
+
+#updatePrice-btn{
+	background-color: #008040;
+}
+
+#updateModal {
+    display: none;
+    background: #005BFF;
+    padding: 20px;
+    border-radius: 15px;
+    margin: 20px;
+}
+#modal-header{
+	padding-top: 5px 0px;	
+}
+
+#modal-body{
+	padding-top: 5px;	
+}
+
+#modal-footer{
+	margin-top: 20px;
+}

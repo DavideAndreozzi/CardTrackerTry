@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+<title>Carte Utente</title>
+	<!--<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css">-->
+	<link rel="stylesheet" type="text/css" th:href="@{/css/menu.css}">
+	<link rel="stylesheet" type="text/css" th:href="@{/css/savedCards.css}">
+	<link rel="icon" th:href="@{/assets/ico/logo_cardtracker.png}" type="image/png" sizes="1024x1024">
+
+</head>
+<body>
+	
+	<!-- Struttura intestazione e menu di navigazione -->
+	<div id="header">
+		<div id="headerContent">
+			<h1 id="headerTitle">Le tue Carte</h1>
+			<div id="options">
+				<a href="https://www.cardtrader.com/" class="btn" target="blank"><img th:src="@{/assets/ico/CardTraderLogo.svg}" alt="expansions" class="iconMenu"><span class="tooltip">Vai su CardTrader</span></a>	
+				<a href="/expansions" class="btn"><img th:src="@{/assets/ico/data.png}" alt="expansions" class="iconMenu"><span class="tooltip">Tutte le espansioni</span></a>	
+				<a href="/index" class="btn"><img th:src="@{/assets/ico/home.png}" alt="Home" class="iconMenu"><span class="tooltip">Torna alla home</span></a>
+		    	<a th:href="@{/logout}" class="btn"><img th:src="@{/assets/ico/logout.png}" alt="Logout" class="iconMenu"><span class="tooltip">Logout</span></a>
+			</div>
+		</div>
+	</div>
+
+	<div id="container">
+	<!-- Visualizzazione  Tabella contenente le informazioni della carta salvata-->
+		<table id="savedCards-table">
+			<thead>
+				<tr id="tableHead-content">
+					<!-- Se si vuole introdurre il nome della carta bisogna
+				 controllare il DB per evitare problemi -->
+					<th>ID Carta</th>
+					<!--<th>Utente</th>-->
+					<th>Nome Carta</th>
+					<th>Prezzo Desiderato</th>
+					<th>Carta Acquistata</th>
+					<th>Azioni</th>
+				</tr>
+			</thead>
+			<tbody>
+				<tr id="card-row" th:each="carta : ${carte}">
+					<td th:text="${carta.id_carta}"></td>
+					<td th:text="${carta.nomeCarta}"></td>
+					<!--<td th:text="${carta.utente.id}"></td>-->
+					<td th:text="${carta.prezzo_desiderato}"></td>
+					<td th:text="${carta.carta_acquistata ? 'Sì' : 'No'}"></td>
+					<td>
+						<button
+    						th:attr="onclick='showUpdateModal(' + ${carta.id_carta} + ', \'' + ${carta.nomeCarta} + '\', ' + ${carta.utente.id} + ', ' + ${carta.prezzo_desiderato} + ')'"
+    						id="modifiyPrice-btn">Modifica Prezzo</button>
+						<button
+							th:attr="onclick='deleteCarta(' + ${carta.id_carta} + ', ' + ${carta.utente.id} + ')'"
+							id="deleteCard-btn">Elimina</button>
+					</td>
+				</tr>
+			</tbody>
+		</table>
+
+
+		<!-- div per il form contenente le info necessarie per modificare 
+		il prezzo della carta in base alle esigenze dell'utente -->
+		<div class="modal fade" aria-labelledby="updateModalLabel"id="updateModal">
+			<div id="modal-content">
+				<div id="modal-header">
+					<h3 id="updateModalLabel">Aggiorna Prezzo Carta</h3>
+				</div>
+				<div id="modal-body">
+					<p>
+						Carta selezionata: <span id="nomeCarta"></span></p>
+					<p>
+						Prezzo attuale: <span id="prezzoAttuale"></span>
+					</p>
+					<input type="hidden" id="idCarta"> <input type="hidden"
+						id="idUtente">
+					<div class="mb-3">
+						<label for="nuovoPrezzo" class="form-label">Nuovo Prezzo</label> 
+						<input type="number" class="form-control" id="nuovoPrezzo" required min="0">
+					</div>
+				</div>
+				<div id="modal-footer">
+					<button type="button" id="cancel-btn" onclick="document.getElementById('updateModal').style.display = 'none';">Annulla</button>
+					<button type="button" id="updatePrice-btn" onclick="updatePrezzo()">Aggiorna Prezzo</button>
+				</div>
+			</div>
+		</div>
+	</div>
+	
+	<script th:src="@{/js/savedCards.js}"></script>
+	<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+</body>
+</html>

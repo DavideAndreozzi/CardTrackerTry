@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Registrazione</title>
+    <link rel="stylesheet" th:href="@{/css/register.css}">
+    <link rel="icon" th:href="@{/assets/ico/register.png}" type="image/png" sizes="96x96">
+</head>
+
+<body>
+	<!-- Blocco contentente il codice necessario per l'inserimento 
+	delle credenziali per la registrazione e la loro verifica -->
+    <div class="wrapper">
+        <p class="form-login">Registrazione</p>
+        <form th:action="@{/register}" method="post" class="mt-3">
+            <div class="input-box">
+                <input type="text" placeholder="Username" id="username" name="username" class="form-control" required>
+            </div>
+
+            <div class="input-box">
+                <input type="text" placeholder="Nome" id="nome" name="nome" class="form-control" required>
+            </div>
+
+            <div class="input-box">
+                <input type="text" placeholder="Cognome" id="cognome" name="cognome" class="form-control" required>
+            </div>
+            
+            <div class="input-box">
+            	<input type="text" placeholder="Via" id="via" name="via" class="form-control" required>
+            </div>
+            
+            <div class="input-box">
+            	<input type="text" placeholder="Città" id="citta" name="citta" class="form-control" required>
+            </div>
+            
+            <div class="input-box">
+            	<input type="text" placeholder="CAP" id="zip" name="zip" class="form-control" required>
+            </div>
+            
+            <div class="input-box">
+            	<input type="text" placeholder="Provincia" id="provincia" name="provincia" class="form-control" required>
+            </div>
+            
+            <div class="input-box">
+            	<input type="text" placeholder="Paese" id="paese" name="paese" class="form-control" required>
+            </div>
+            
+            <div class="input-box">
+            	<input type="text" placeholder="Numero di telefono" id="numero_telefono" name="numeroTelefono" class="form-control" required>
+            </div>
+            
+
+            <div class="input-box">
+                <input type="password" placeholder="Password" id="password" name="password" class="form-control" required>
+            </div>
+
+            <div class="input-box">
+                <input type="text" placeholder="Bearer Token" id="bearer" name="bearer" class="form-control" required>
+            </div>
+
+            <div th:if="${param.error}" class="alert alert-danger">
+                Username già esistente! Riprova con un altro.
+            </div>
+
+            <button type="submit" class="btn btn-primary">Invia</button>
+        </form>
+		<div class="register-link">
+        	<p class="mt-3">Hai già un account? <a th:href="@{/login}">Accedi qui</a></p>
+    	</div>
+    </div>
+
+    <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script>
+    
+</body>
+</html>

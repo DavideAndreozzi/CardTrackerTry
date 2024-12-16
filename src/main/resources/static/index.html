@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Seleziona un'Espansione</title>
+</head>
+<body>
+    <h1>Seleziona un'Espansione</h1>
+    <div id="expansions-list"></div>
+
+    <div id="cards-list" style="display: none;">
+        <h2>Carte per Espansione</h2>
+        <div id="cards"></div>
+        <a href="index.html">Torna alla lista delle espansioni</a>
+    </div>
+
+    <script>
+        // Funzione per ottenere il valore di un parametro di query dall'URL
+        function getQueryParam(param) {
+            const urlParams = new URLSearchParams(window.location.search);
+            return urlParams.get(param);
+        }
+
+        const expansionId = getQueryParam('expansionId');
+        const expansionsListDiv = document.getElementById('expansions-list');
+        const cardsListDiv = document.getElementById('cards-list');
+        const cardsDiv = document.getElementById('cards');
+
+        // Se c'è un parametro expansionId nella query, mostra le carte per quell'espansione
+        if (expansionId) {
+            fetch(`/searchBlueprintsByExpansion?expansionId=${encodeURIComponent(expansionId)}`)
+                .then(response => response.json())
+                .then(data => {
+                    cardsListDiv.style.display = 'block';
+                    expansionsListDiv.style.display = 'none';
+
+                    if (data.length === 0) {
+                        cardsDiv.innerHTML = '<p>Nessuna carta trovata per questa espansione.</p>';
+                        return;
+                    }
+
+                    // Mostra tutte le carte trovate con link alla pagina del dettaglio
+                    data.forEach(blueprint => {
+                        const blueprintDiv = document.createElement('div');
+                        blueprintDiv.innerHTML = `
+                            <h3>${blueprint.name}</h3>
+                            <p>ID: ${blueprint.id}</p>
+                            <a href="/card-details.html?blueprint_id=${blueprint.id}&image_url=${encodeURIComponent(blueprint.image_url)}">
+                                <img src="${blueprint.image_url}" alt="${blueprint.name}" style="max-width: 200px; cursor: pointer;">
+                            </a>
+                        `;
+                        cardsDiv.appendChild(blueprintDiv);
+                    });
+                })
+                .catch(error => {
+                    console.error('Errore:', error);
+                    cardsDiv.innerHTML = '<p>Errore durante il recupero delle carte.</p>';
+                });
+        } else {
+            // Recupera l'elenco delle espansioni
+            fetch('/getExpansions')
+                .then(response => response.json())
+                .then(expansions => {
+                    if (expansions && expansions.length > 0) {
+                        expansions.forEach(expansion => {
+                        	if (expansion.game_id == 1) {
+                            const expansionDiv = document.createElement('div');
+                            expansionDiv.innerHTML = `
+                                <a href="?expansionId=${expansion.id}"><h3>${expansion.name}</h3></a>
+                            `;
+                            expansionsListDiv.appendChild(expansionDiv);
+                        	}
+                        });
+                    } else {
+                        expansionsListDiv.innerHTML = '<p>Nessuna espansione trovata.</p>';
+                    }
+                })
+                .catch(error => {
+                    console.error('Errore:', error);
+                    expansionsListDiv.innerHTML = '<p>Errore durante il recupero delle espansioni.</p>';
+                });
+        }
+    </script>
+</body>
+</html>

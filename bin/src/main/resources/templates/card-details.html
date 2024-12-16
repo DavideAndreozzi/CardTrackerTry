@@ -1,0 +1,144 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" lang="en" >
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <!-- <link rel="stylesheet" type="text/css" th:href="@{styles/card-details.css}"> -->
+	<link rel="stylesheet" type="text/css" th:href="@{styles/card-details.css}">
+
+    <title>Dettaglio Carta</title>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script> <!-- Inclusione di Chart.js -->
+	<style>
+        #card-info img {
+            max-width: 300px; /* Limita la dimensione massima dell'immagine */
+            height: auto; /* Mantiene le proporzioni dell'immagine */
+            display: inline;
+            margin: 0 auto; /* Centra l'immagine */
+        }
+
+        #priceChart {
+            max-width: 600px; /* Limita la larghezza massima del grafico */
+            height: 300px; /* Altezza fissa per il grafico */
+            margin: 0 auto; /* Centra il grafico */
+            display: inline;
+        }
+    </style>
+</head>
+<body>
+    <h1>Dettagli della Carta</h1>
+    <div id="card-info"></div>
+    
+    <h2>Inserisci il prezzo</h2>
+    <form action="/salva" method="post" id="salvaCartaForm">
+        <label for="idUtente">ID Utente:</label>
+        <input type="number" id="idUtente" name="utente" required><br><br>
+        <label for="prezzoDesiderato">Prezzo Desiderato:</label>
+        <input type="number" step="0.01" id="prezzoDesiderato" name="prezzo_desiderato" required><br><br>
+		<input type= "hidden" id= "blueprintId" name= "id_carta">
+
+        <button type="submit">Salva Carta</button>
+    </form>
+    
+    <canvas id="priceChart" width="400" height="200"></canvas>
+    <a href="/home"><p>Torna al menù principale</p></a> <!-- sistemare -->
+
+    <script>
+        // Funzione per ottenere il valore di un parametro di query dall'URL
+        // Funzione per ottenere il valore di un parametro di query dall'URL
+function getQueryParam(param) {
+    const urlParams = new URLSearchParams(window.location.search);
+    return urlParams.get(param);
+}
+
+const blueprintId = getQueryParam('blueprint_id');
+const imageUrl = getQueryParam('image_url');
+document.getElementById('blueprintId').value = getQueryParam('blueprint_id');
+if (blueprintId) {
+    console.log(`Richiesta dei dati per la carta con ID: ${blueprintId}`);
+
+    // Recupera i dati della carta dal controller Spring
+    fetch(`/getMarketplaceData?blueprintId=${blueprintId}`)
+        .then(response => response.json())
+        .then(data => {
+            console.log('Dati ricevuti:', data); // Log dei dati ricevuti
+
+            const cardInfoDiv = document.getElementById('card-info');
+            if (data && data.length > 0) {
+                const cardData = data[0];
+
+                // Controlla se `properties_hash` esiste prima di accedere alle sue proprietà
+                const condition = cardData.properties_hash ? cardData.properties_hash.condition : 'N/A';
+                const foil = cardData.properties_hash ? cardData.properties_hash.mtg_foil : 'N/A';
+
+                // Mostra le informazioni base della carta
+                cardInfoDiv.innerHTML = `
+                    <h2>${cardData.name_en}</h2>
+                    <img src="${imageUrl}" alt="${cardData.name_en}">
+                    <p>Carta ID: ${blueprintId}</p>
+                    <p>Espansione: ${cardData.expansion.name_en}</p>
+                    <p>Prezzo più basso: ${cardData.price.formatted}</p>
+                    <p>Condizione: ${cardData.properties_hash.condition}</p>
+                    <p>Foil: ${cardData.properties_hash.mtg_foil}</p>
+                `;
+
+                // Prepara i dati per il grafico dei prezzi
+                const prices = data.map(item => item.price.cents / 100); // Estraggo i prezzi e convertili in EUR
+                const labels = data.map((item, index) => `${index + 1}`); // Etichette fittizie
+
+                // Crea il grafico dei prezzi usando Chart.js
+                const ctx = document.getElementById('priceChart').getContext('2d');
+                new Chart(ctx, {
+                    type: 'line', // Tipo di grafico
+                    data: {
+                        labels: labels, // Asse x
+                        datasets: [{
+                            label: 'Prezzo della Carta (EUR)',
+                            data: prices, // Asse y (prezzi)
+                            borderColor: 'rgba(75, 192, 192, 1)',
+                            borderWidth: 2,
+                            fill: false
+                        }]
+                    },
+                    options: {
+                        scales: {
+                            y: {
+                                beginAtZero: true
+                            }
+                        }
+                    }
+                });
+            } else {
+                cardInfoDiv.innerHTML = '<p>Nessun dato disponibile per questa carta.</p>';
+            }
+        })
+        .catch(error => {
+            console.error('Errore:', error);
+            document.getElementById('card-info').innerHTML = `<p>Errore durante il recupero dei dati della carta: ${error.message}</p>`;
+        });
+} else {
+    document.getElementById('card-info').innerHTML = '<p>ID carta non trovato.</p>';
+}
+document.getElementById('salvaCartaForm').addEventListener('submit', function(event) {
+    event.preventDefault(); // Prevenire il comportamento di default del form
+
+    // Creare un oggetto FormData per ottenere i dati del form
+    const formData = new FormData(this);
+
+    // Effettuare una richiesta POST usando Fetch API
+    fetch('/salva', {
+        method: 'POST',
+        body: formData,
+    })
+    .then(response => response.json())  // Converte la risposta in JSON
+    .then(data => {
+        // Mostra un avviso con il messaggio dal server
+        alert(data.message);
+    })
+    .catch(error => {
+        alert("Si è verificato un errore durante il salvataggio della carta.");
+        console.error("Errore:", error);
+    });
+});
+    </script>
+</body>
+</html>

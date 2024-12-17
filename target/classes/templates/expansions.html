@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" lang="en" >
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<link rel="stylesheet" type="text/css" th:href="@{/css/expansions.css}">
+	<link rel="stylesheet" type="text/css" th:href="@{/css/menu.css}">
+	<link rel="icon" th:href="@{/assets/ico/cardIcon0.png}" type="image/png" sizes="96x96">
+	
+    <title>Seleziona un'Espansione</title>
+</head>
+
+<body>
+	<!-- Struttura intestazione e menu di navigazione -->
+    <div id="header">
+		<div id="headerContent">
+			<h1 id="headerTitle">Espansioni</h1>
+			<div id="options">
+				<a href="/trackedCards" class="btn"><img th:src="@{/assets/ico/summary.png}" alt="Summary" class="iconMenu"><span class="tooltip">Le tue carte</span></a>
+		    	<a href="/index" class="btn"><img th:src="@{/assets/ico/home.png}" alt="Home" class="iconMenu"><span class="tooltip">Torna alla home</span></a>
+		    	<a th:href="@{/logout}" class="btn"><img th:src="@{/assets/ico/logout.png}" alt="Logout" class="iconMenu"><span class="tooltip">Logout</span></a>
+			</div>
+		</div>
+	</div> 
+    
+    <!-- Barra di ricerca -->
+	<div id="research-content" >
+        <input type="text" id="search-bar" placeholder="Cerca" oninput="filterItems()">
+        <!--<button id="search-btn" onclick="filterItems()" >Cerca</button>-->
+	</div>
+	
+	<div id="content">
+		<!-- visualizzazione della lista delle espansioni -->
+	    <div id="expansions-list"></div>
+	    <!-- visualizzazione delle carte all'interno di un'espansione selezionata -->
+		<div id="cardList-options">
+			<h3 id="cardlist-title">Carte dell'Espansione</h3>
+			<!-- la lista delle carte di un'espansione non è visibile fino alla sua selezione -->
+			<div id="cards-list" style="display: none;">
+				<div id="cards"></div>
+			</div>
+		</div>
+	</div>
+	
+    <script th:src="@{/js/expansions.js}" type="text/javascript"></script>
+
+</body>
+</html>

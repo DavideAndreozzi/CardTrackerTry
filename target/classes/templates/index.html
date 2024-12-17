@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<link rel="stylesheet" type="text/css" th:href="@{/css/index.css}">
+	<link rel="stylesheet" type="text/css" th:href="@{/css/menu.css}">
+	<link rel="icon" th:href="@{/assets/ico/logo_cardtracker.png}" type="image/png" sizes="1024x1024">
+	
+    <title>CardTrader</title>
+</head>
+
+<body>    
+	<!-- Struttura intestazione e menu di navigazione -->
+	<div id="header">
+		<div id="headerContent">
+			<h1 id="headerTitle">Card Tracker</h1>
+			<div id="options">
+				<a href="https://www.cardtrader.com/" class="btn" target="blank"><img th:src="@{/assets/ico/CardTraderLogo.svg}" alt="expansions" class="iconMenu"><span class="tooltip">Vai su CardTrader</span></a>	
+				<a href="/expansions" class="btn"><img th:src="@{/assets/ico/data.png}" alt="expansions" class="iconMenu"><span class="tooltip">Tutte le espansioni</span></a>	
+		    	<a href="/trackedCards" class="btn"><img th:src="@{/assets/ico/summary.png}" alt="Summary" class="iconMenu"><span class="tooltip">Le tue carte</span></a>
+		    	<a th:href="@{/logout}" class="btn"><img th:src="@{/assets/ico/logout.png}" alt="Logout" class="iconMenu"><span class="tooltip">Logout</span></a>
+			</div>
+		</div>
+	</div>
+	
+	<!-- Elementi introduttivi della pagina  -->
+	<div id="content">
+		<h2 id="text-info">Benvenuti nel Sito di Card Tracker!</h2>
+		<h3 id="text-info">Dai un'occhiata alle ultime espansioni!</h3>
+		<div id="latest-exp">
+			<a class="expLink" href="/expansions?expansionId=3627"><img class="expImg" th:src="@{/assets/img/homeExp1.png}"></a>
+			<a class="expLink" href="/expansions?expansionId=3634"><img class="expImg" th:src="@{/assets/img/homeExp2.png}"></a>
+			<a class="expLink" href="/expansions?expansionId=3780"><img class="expImg" th:src="@{/assets/img/homeExp3.png}"></a>
+			<a class="expLink" href="/expansions?expansionId=3644"><img class="expImg" th:src="@{/assets/img/homeExp4.png}"></a>
+		</div>
+	</div>
+	
+</body>
+</html>

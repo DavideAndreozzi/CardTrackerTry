@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<title>Login</title>
+	<link rel="stylesheet" th:href="@{/css/login.css}">
+	<link rel="icon" th:href="@{/assets/ico/user.png}" type="image/png"sizes="96x96">
+</head>
+
+<body>
+	<!-- Blocco contentente il codice necessario per l'inserimento 
+	delle credenziali per il login e la loro verifica -->
+	<div class="wrapper">
+		<p class="form-login">Login</p>
+		<form th:action="@{/login}" method="post" class="mt-3">
+			<div class="input-box">
+				<input type="text" placeholder="Username" id="username"
+					name="username" class="form-control" required>
+			</div>
+			</br>
+			<div class="input-box">
+				<input type="password" placeholder="Password" id="password"
+					name="password" class="form-control" required>
+			</div>
+			<div th:if="${param.error}" class="alert alert-danger">
+				Credenziali non valide, riprova.
+			</div>
+			<div th:if="${param.logout}" class="alert alert-success">
+				Disconnesso con successo!
+			</div>
+			<button type="submit" class="btn">Login</button>
+		</form>
+		<div class="register-link">
+			<p>
+				Non hai un account? <a th:href="@{/register}">Registrati qui</a>
+			</p>
+		</div>
+	</div>
+
+	<script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"></script>
+	<script
+		src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"></script>
+	<script
+		src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script>
+</body>
+</html>

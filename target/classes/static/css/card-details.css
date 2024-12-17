@@ -1,0 +1,91 @@
+body {
+	height: 100vh;
+	background-image: url('../assets/img/bg.svg');
+	background-size: cover;
+	background-repeat: no-repeat;
+	background-position: center;
+	background-attachment: fixed;
+	font-family: Arial, sans-serif;
+	color: white;
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+}
+
+#card-info {
+	background: linear-gradient(to right, #1F2A2D 0%, #0080AA 50%, #FFD027 100%);
+    display: center;
+    justify-content: center;  
+    align-items: flex-start;
+    border-radius: 15px;
+    margin: 20px;
+    width: 80%;
+    max-width: 1000px;         
+}
+
+#card-description {
+    display: inline-block;
+    position: relative;
+    bottom: 50px;
+    padding: 20px;
+}
+
+#card-img {
+    max-width: 300px;         
+    height: auto;              
+    border-radius: 10px;
+    margin-right: 10px;
+    margin-left: 300px;       
+}
+
+
+#priceChart {
+    max-width: 600px;         
+    height: 300px;            
+    margin: 0 auto;           
+    display: center;
+    align-items: center;
+}
+
+
+#form-content {
+	background: linear-gradient(to right, #1F2A2D 0%, #0080AA 50%, #FFD027 100%);
+	border-radius: 15px;
+	display: inline-block;
+	width: 80%;
+    max-width: 1000px; 
+	text-align: center;
+	padding:5px;
+}
+
+button[type="submit"] {
+	display: inline-flex;
+    margin-top: 2.5px;         
+    padding: 10px 20px;
+    background-color: #006DA4;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+}
+
+button[type="submit"]:hover {
+    background-color: #005A88;
+}
+
+#cardTitle-content{
+	text-align: center;       
+    font-size: 2.5rem;         
+    font-weight: bold;        
+    margin-bottom: 20px;       
+    color: #FFD027;            
+}
+
+#card-title {
+    text-align: center;       
+    font-size: 2.5rem;        
+    font-weight: bold;       
+    margin-bottom: 20px;      
+    color: white;           
+}
+

@@ -92,7 +92,7 @@ main {
 .expansion img {
     width: 100%;
     height: 100%;
-    object-fit: cover;
+    object-fit: contain;
 }
 
 .expansion:hover {
@@ -179,11 +179,12 @@ main {
     .expansions {
         grid-template-columns: repeat(2, 1fr); /* 2 colonne */
         grid-template-rows: repeat(2, 1fr); /* 2 righe */
-        gap: 20px; /* Spaziatura tra le immagini */
+        row-gap: 20px; /* Spaziatura tra le immagini */
+        column-gap: 0px;
     }
 
     .expansion {
-        max-width: 2000px; /* Rende le espansioni più piccole */
-        max-height: 800px; /* Rende le espansioni più piccole */
+        max-width: 500px; /* Rende le espansioni più piccole */
+        max-height: auto; /* Rende le espansioni più piccole */
     }
 }

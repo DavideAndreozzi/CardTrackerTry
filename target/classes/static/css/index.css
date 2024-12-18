@@ -1,56 +1,189 @@
+/* Corpo generale */
 body {
-    height: 100vh;
-	background-image: url('../assets/img/bg.svg');
-	background-size: cover;
-	background-repeat: no-repeat;
-	background-position: center;
-	background-attachment: fixed;
-	color: white;
-	font-family: Arial, sans-serif;
+    margin: 0;
+    font-family: Arial, sans-serif;
+    color: white;
+    background-image: url('assets/img/bg.svg');
+    background-size: cover;
+    background-repeat: no-repeat;
+    background-position: center;
+    background-attachment: fixed;
 }
 
-#content {
+/* Header */
+header {
+    background: rgba(0, 0, 0, 0.7);
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    z-index: 1000;
+    padding: 10px 0;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+}
+
+.container {
     display: flex;
-    flex-direction: column;
-    justify-content: center; 
-    align-items: center; 
+    justify-content: space-between;
+    align-items: center;
+    padding: 0 20px;
+    max-width: 1200px;
+    margin: 0 auto;
+}
+
+.logo {
+    font-size: 1.8em;
+    margin: 0;
+    color: #fff;
+    white-space: nowrap; /* Prevents the logo text from wrapping */
+}
+
+nav {
+    display: flex;
+    gap: 15px;
+    justify-content: flex-end;
+}
+
+.btn {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: none;
+    border: none;
+    cursor: pointer;
+}
+
+.icon {
+    width: 30px;
+    height: 30px;
+}
+
+/* Main content */
+main {
+    margin-top: 80px; /* Compensazione per l'header fisso */
+    padding: 20px;
     text-align: center;
 }
 
-a{
-	color:white;
-	text-decoration: none;
+.intro h2,
+.intro h3 {
+    margin: 10px 0;
 }
 
-#latest-exp{
-	align-items:center;
-	justify-content: center;
-	display: grid;
-    grid-template-columns: repeat(2, 1fr); 
-    grid-gap: 10px;
+/* Griglia delle espansioni */
+.expansions {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 20px;
+    margin-top: 30px;
 }
 
-.expLink{
-	align-items:center;
-	justify-content: center;
-	width: 350px;
-    height: 150px;
-	display: inline-flex;
-	background: linear-gradient(to right, #1F2A2D 0%, #0080AA 50%, #FFD027 100%);
-    padding: 15px 12.5px 15px 15px ;
+.expansion {
+    position: relative;
+    overflow: hidden;
     border-radius: 15px;
-	margin: 10px;
-	cursor: pointer;
-	transition: transform 0.3s ease, box-shadow 0.3s ease;
-}
-.expLink:hover {
-	transform: scale(1.05);
-	box-shadow: 0 10px 15px rgba(0, 0, 0, 0.2);
+    background: linear-gradient(to right, #1F2A2D 0%, #0080AA 50%, #FFD027 100%);
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+    max-width: 2000px; /* Rende le espansioni più piccole */
+        max-height: 800px; 
+    margin: 0 auto;
 }
 
-.expImg{
-	width: 250px;
-	height: auto;
-	
+.expansion img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
 }
 
+.expansion:hover {
+    transform: scale(1.05);
+    box-shadow: 0 10px 20px rgba(0, 0, 0, 0.2);
+}
+
+/* Responsive */
+@media (max-width: 1024px) {
+    .expansions {
+        grid-template-columns: repeat(3, 1fr); /* 3 colonne su tablet */
+    }
+
+    .container {
+        padding: 0 15px;
+    }
+
+    .logo {
+        font-size: 1.6em;
+    }
+}
+
+@media (max-width: 768px) {
+    .expansions {
+        grid-template-columns: repeat(2, 1fr); /* 2 colonne su dispositivi mobili */
+    }
+
+    nav {
+        justify-content: space-between;
+        gap: 10px;
+    }
+
+    .logo {
+        font-size: 1.5em;
+    }
+
+    .btn {
+        margin: 5px 0;
+    }
+
+    .container {
+        flex-direction: row;
+        align-items: center;
+        justify-content: space-between;
+    }
+
+    .intro h2 {
+        font-size: 1.5em;
+    }
+
+    .intro h3 {
+        font-size: 1.2em;
+    }
+}
+
+@media (max-width: 480px) {
+    .expansions {
+        grid-template-columns: 1fr; /* 1 colonna su dispositivi molto piccoli */
+    }
+
+    .logo {
+        font-size: 1.3em;
+    }
+
+    .intro h2 {
+        font-size: 1.3em;
+    }
+
+    .intro h3 {
+        font-size: 1.1em;
+    }
+
+    nav {
+        justify-content: space-between;
+    }
+
+    .btn {
+        margin: 0 10px;
+    }
+}
+
+/* Modifica per schermi grandi (PC) */
+@media (min-width: 1200px) {
+    .expansions {
+        grid-template-columns: repeat(2, 1fr); /* 2 colonne */
+        grid-template-rows: repeat(2, 1fr); /* 2 righe */
+        gap: 20px; /* Spaziatura tra le immagini */
+    }
+
+    .expansion {
+        max-width: 2000px; /* Rende le espansioni più piccole */
+        max-height: 800px; /* Rende le espansioni più piccole */
+    }
+}

@@ -2,7 +2,8 @@
 body {
     margin: 0;
     font-family: Arial, sans-serif;
-    color: white;
+    color: rgb(255, 255, 255);
+    background-color: rgb(66, 131, 250);
     background-image: url('assets/img/bg.svg');
     background-size: cover;
     background-repeat: no-repeat;

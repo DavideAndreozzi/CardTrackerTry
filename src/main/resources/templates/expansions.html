@@ -7,22 +7,30 @@
 	<link rel="stylesheet" type="text/css" th:href="@{/css/menu.css}">
 	<link rel="icon" th:href="@{/assets/ico/cardIcon0.png}" type="image/png" sizes="96x96">
 	
-    <title>Seleziona un'Espansione</title>
+    <title>CardTracker</title>
 </head>
 
 <body>
 	<!-- Struttura intestazione e menu di navigazione -->
-    <div id="header">
-		<div id="headerContent">
-			<h1 id="headerTitle">Espansioni</h1>
-			<div id="options">
-				<a href="/trackedCards" class="btn"><img th:src="@{/assets/ico/summary.png}" alt="Summary" class="iconMenu"><span class="tooltip">Le tue carte</span></a>
-		    	<a href="/index" class="btn"><img th:src="@{/assets/ico/home.png}" alt="Home" class="iconMenu"><span class="tooltip">Torna alla home</span></a>
-		    	<a th:href="@{/logout}" class="btn"><img th:src="@{/assets/ico/logout.png}" alt="Logout" class="iconMenu"><span class="tooltip">Logout</span></a>
-			</div>
-		</div>
-	</div> 
-    
+	<header>
+        <div class="container">
+            <h1 class="logo">Card Tracker</h1>
+            <nav>
+                <a href="https://www.cardtrader.com/" class="btn">
+                    <img src="assets/ico/CardTraderLogo.svg" alt="CardTrader" class="icon">
+                </a>
+                <a href="/index" class="btn">
+                    <img src="assets/ico/home.png" alt="Home" class="icon">
+                </a>
+                <a href="/trackedCards" class="btn">
+                    <img src="assets/ico/summary.png" alt="Tracked Cards" class="icon">
+                </a>
+                <a href="/logout" class="btn">
+                    <img src="assets/ico/logout.png" alt="Logout" class="icon">
+                </a>
+            </nav>
+        </div>
+    </header>
     <!-- Barra di ricerca -->
 	<div id="research-content" >
         <input type="text" id="search-bar" placeholder="Cerca" oninput="filterItems()">

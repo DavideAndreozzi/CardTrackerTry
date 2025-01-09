@@ -1,6 +1,5 @@
 com\andreozzi\controllers\CardController$User.class
 com\andreozzi\repos\UtenteDAO.class
-com\andreozzi\controllers\EmailController.class
 com\andreozzi\config\DefaultSecurityConfig.class
 com\andreozzi\controllers\AuthController.class
 com\andreozzi\controllers\CardController$Blueprint.class

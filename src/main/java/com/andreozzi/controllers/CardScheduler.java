@@ -32,7 +32,7 @@ public class CardScheduler {
     private EmailService emailService;
 
     // Metodo schedulato che viene eseguito ogni "fixedRate" secondi
-    @Scheduled(fixedRate = 10000)
+    @Scheduled(fixedRate = 60000)
     public void tracker() throws MessagingException {
         // Recupera l'utente loggato dalla sessione
         List<Utente> utenti = utenteDAO.findAll();

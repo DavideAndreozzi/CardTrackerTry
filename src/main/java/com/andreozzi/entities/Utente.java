@@ -15,6 +15,7 @@ public class Utente {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
+    private String email;
     private String nome;
     private String cognome;
     private String via;
@@ -32,7 +33,14 @@ public class Utente {
 
     private String username;
 
-    // Getter e Setter
+    public String getEmail(){
+        return email;
+    }
+
+    public void setEmail(String email){
+        this.email = email;
+    }
+
     public Long getId() {
         return id;
     }

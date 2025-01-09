@@ -12,6 +12,9 @@ import com.andreozzi.entities.Utente;
 import com.andreozzi.repos.CartaDAO;
 import com.andreozzi.repos.UtenteDAO;
 import com.andreozzi.service.CardSearchService;
+import com.andreozzi.service.EmailService;
+
+import jakarta.mail.MessagingException;
 
 @Component
 public class CardScheduler {
@@ -25,9 +28,12 @@ public class CardScheduler {
     @Autowired
     private UtenteDAO utenteDAO;
 
+    @Autowired
+    private EmailService emailService;
+
     // Metodo schedulato che viene eseguito ogni "fixedRate" secondi
     @Scheduled(fixedRate = 10000)
-    public void tracker() {
+    public void tracker() throws MessagingException {
         // Recupera l'utente loggato dalla sessione
         List<Utente> utenti = utenteDAO.findAll();
         for (Utente utente : utenti) {
@@ -44,6 +50,9 @@ public class CardScheduler {
                     if (prezzo <= prezzoDesiderato) {
 
                         cardService.addProductToCart(authToken, prodotto.getId());
+                        if (utente.getEmail()!=null){
+                        emailService.sendEmail(utente.getEmail(),"Carta nel carrello!",emailService.addedToCartEmail(carta.getNomeCarta()), true);
+                        }
 
                         // Esegue l'acquisto del prodotto
                         cardService.buyProduct(authToken, prodotto.getId(), nomeCognome,

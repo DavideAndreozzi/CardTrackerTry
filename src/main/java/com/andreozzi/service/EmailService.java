@@ -81,7 +81,7 @@ public class EmailService {
                 <div class="container">
                     <h1>Carta aggiunta al carrello!</h1>
                     <p>Siamo lieti di informarti che la carta desiderata "<strong>%s</strong>" è stata aggiunta al tuo carrello.</p>
-                    <p>Puoi procedere al pagamento o inserire un metodo di pagamento valido per automatizzare l'acquisto!.</p>
+                    <p>Puoi procedere al pagamento o inserire un metodo di pagamento valido per automatizzare l'acquisto!</p>
                     <div class="cta">
                         <a href="https://www.cardtrader.com/it/cart/edit" target="_blank">Vai al Carrello</a>
                     </div>

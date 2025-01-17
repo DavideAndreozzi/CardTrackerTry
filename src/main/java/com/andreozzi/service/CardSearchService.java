@@ -10,6 +10,10 @@ import org.springframework.web.client.RestTemplate;
 
 import com.andreozzi.controllers.CardController;
 import com.andreozzi.controllers.CardController.MarketplaceProduct;
+import com.andreozzi.entities.Card;
+import com.andreozzi.repos.CardDAO;
+
+import jakarta.persistence.Tuple;
 
 import java.util.List;
 import java.util.NoSuchElementException;
@@ -24,8 +28,19 @@ public class CardSearchService {
 	@Autowired
 	private RestTemplate restTemplate; 
 
+	@Autowired
+    private CardDAO cardRepository;
+
+    public Optional<Card> findByName(String name) {
+        return cardRepository.findByName(name);
+    }
+
+	public List<Tuple> findSuggestions(String query) {
+        return cardRepository.findSuggestions(query);
+    }
+
 	// Ottiene il prezzo più basso per un determinato blueprintId
-	public MarketplaceProduct getLowestPrice(int blueprintId, String desiredLanguage, String desiredCondition) {
+	public MarketplaceProduct getLowestPrice(int blueprintId, String desiredLanguage, String desiredCondition, boolean isfoil) {
     // Recupera i dati del marketplace per il blueprintId
     List<MarketplaceProduct> products = cardController.getMarketplaceData(blueprintId);
 
@@ -33,7 +48,8 @@ public class CardSearchService {
     Optional<MarketplaceProduct> prodottop = products.stream()
             .filter(prodotto -> prodotto.getUser().isCtZero() && 
                                prodotto.getPropertiesHash().getMtgLanguage().equalsIgnoreCase(desiredLanguage) && 
-                               prodotto.getPropertiesHash().getCondition().equalsIgnoreCase(desiredCondition))
+                               prodotto.getPropertiesHash().getCondition().equalsIgnoreCase(desiredCondition) &&
+							   prodotto.getPropertiesHash().isMtgFoil() == isfoil)
             .findFirst(); // Prende il primo prodotto che soddisfa le condizioni
 
     // Controlla se esiste un prodotto che soddisfa le condizioni, altrimenti lancia un'eccezione

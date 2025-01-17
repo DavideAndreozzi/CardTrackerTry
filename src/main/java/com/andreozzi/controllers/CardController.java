@@ -21,6 +21,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.client.RestTemplate;
 
+import com.andreozzi.entities.Card;
 import com.andreozzi.entities.Carta;
 import com.andreozzi.entities.CartaId;
 import com.andreozzi.entities.CustomUserDetails;
@@ -28,8 +29,12 @@ import com.andreozzi.entities.Utente;
 import com.andreozzi.repos.CartaDAO;
 import com.andreozzi.service.CardSearchService;
 import com.fasterxml.jackson.annotation.JsonProperty;
+
+import jakarta.persistence.Tuple;
+
 import java.util.Map;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Optional;
 
@@ -45,6 +50,37 @@ public class CardController {
     @Autowired
     @Lazy
     private CardSearchService cardSearchService; // Servizio per la ricerca delle carte
+
+    @GetMapping("/search")
+    public ResponseEntity<?> searchCard(@RequestParam String name) {
+        Optional<Card> card = cardSearchService.findByName(name); // Cerca il record per `name`
+        if (card.isPresent()) {
+            return ResponseEntity.ok(card.get().getBlueprintID());
+        }
+        return ResponseEntity.status(HttpStatus.NOT_FOUND).body("Card not found");
+    }
+
+    @GetMapping("/suggestions")
+public ResponseEntity<List<Map<String, Object>>> getSuggestions(@RequestParam String query) {
+    List<Tuple> suggestions = cardSearchService.findSuggestions(query);
+    List<Map<String, Object>> result = new ArrayList<>();
+    
+    // Itera sulla lista di Tuple e crea una mappa con i dati desiderati
+    for (Tuple tuple : suggestions) {
+        Map<String, Object> suggestion = new HashMap<>();
+        String name = tuple.get(0, String.class);  // Ottieni il nome della carta
+        int blueprintId = tuple.get(1, int.class);  // Ottieni il blueprintId
+
+        suggestion.put("name", name);
+        suggestion.put("blueprintId", blueprintId);
+
+        result.add(suggestion);
+    }
+    
+    return ResponseEntity.ok(result);
+}
+
+    
 
     private String AUTH_TOKEN; // Token di autorizzazione per le API
     private Utente loggedUser; // Utente attualmente loggato

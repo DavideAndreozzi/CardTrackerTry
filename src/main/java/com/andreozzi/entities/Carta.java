@@ -29,6 +29,19 @@ public class Carta {
 	@Column(name="card_condition")
 	private String cardCondition;
 	private String language;
+	private boolean foil;
+
+	public boolean isFoil() {
+		return this.foil;
+	}
+
+	public boolean getFoil() {
+		return this.foil;
+	}
+
+	public void setFoil(boolean foil) {
+		this.foil = foil;
+	}
 	
 	
 

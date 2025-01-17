@@ -5,11 +5,13 @@ C:\Users\icts23-25.557\Documents\GitHub\CardTrackerDemo\src\main\java\com\andreo
 C:\Users\icts23-25.557\Documents\GitHub\CardTrackerDemo\src\main\java\com\andreozzi\controllers\CardScheduler.java
 C:\Users\icts23-25.557\Documents\GitHub\CardTrackerDemo\src\main\java\com\andreozzi\controllers\CasesErrorController.java
 C:\Users\icts23-25.557\Documents\GitHub\CardTrackerDemo\src\main\java\com\andreozzi\controllers\Thymeleaf.java
+C:\Users\icts23-25.557\Documents\GitHub\CardTrackerDemo\src\main\java\com\andreozzi\entities\Card.java
 C:\Users\icts23-25.557\Documents\GitHub\CardTrackerDemo\src\main\java\com\andreozzi\entities\Carta.java
 C:\Users\icts23-25.557\Documents\GitHub\CardTrackerDemo\src\main\java\com\andreozzi\entities\CartaId.java
 C:\Users\icts23-25.557\Documents\GitHub\CardTrackerDemo\src\main\java\com\andreozzi\entities\CustomUserDetails.java
 C:\Users\icts23-25.557\Documents\GitHub\CardTrackerDemo\src\main\java\com\andreozzi\entities\Utente.java
 C:\Users\icts23-25.557\Documents\GitHub\CardTrackerDemo\src\main\java\com\andreozzi\ProvaApiApplication.java
+C:\Users\icts23-25.557\Documents\GitHub\CardTrackerDemo\src\main\java\com\andreozzi\repos\CardDAO.java
 C:\Users\icts23-25.557\Documents\GitHub\CardTrackerDemo\src\main\java\com\andreozzi\repos\CartaDAO.java
 C:\Users\icts23-25.557\Documents\GitHub\CardTrackerDemo\src\main\java\com\andreozzi\repos\UtenteDAO.java
 C:\Users\icts23-25.557\Documents\GitHub\CardTrackerDemo\src\main\java\com\andreozzi\service\CardSearchService.java

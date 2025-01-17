@@ -118,3 +118,64 @@ function filterItems() {
         noResult.style.display = 'none';
     }
 }
+
+async function searchCard() {
+    const input = document.getElementById("searchInput").value;
+
+    if (!input.trim()) {
+        alert("Please enter a card name!");
+        return;
+    }
+
+    try {
+        const response = await fetch(`/search?name=${encodeURIComponent(input)}`);
+        if (response.ok) {
+            const blueprintId = await response.text(); // Ottieni l'ID del blueprint
+            window.location.href = `/cards?blueprint_id=${blueprintId}`; // Reindirizza
+        } else {
+            alert("Card not found! Please try again.");
+        }
+    } catch (error) {
+        console.error("Error while searching for the card:", error);
+        alert("An error occurred. Please try again later.");
+    }
+}
+
+let timeout = null; // Per il debounce delle richieste
+
+async function fetchSuggestions() {
+    const input = document.getElementById("searchInput").value;
+    const suggestionsDiv = document.getElementById("suggestions");
+
+    if (!input.trim()) {
+        suggestionsDiv.innerHTML = ""; // Pulisci i suggerimenti se non c'è input
+        return;
+    }
+
+    // Evita di inviare troppe richieste
+    clearTimeout(timeout);
+    timeout = setTimeout(async () => {
+        try {
+            const response = await fetch(`/suggestions?query=${encodeURIComponent(input)}`);
+            if (response.ok) {
+                const suggestions = await response.json();
+                suggestionsDiv.innerHTML = suggestions
+                    .map(suggestion => 
+                        `<div onclick="selectSuggestion(${suggestion.blueprintId})">
+                            ${suggestion.name}
+                        </div>`
+                    )
+                    .join("");
+            } else {
+                suggestionsDiv.innerHTML = "<div>No results found</div>";
+            }
+        } catch (error) {
+            console.error("Error fetching suggestions:", error);
+        }
+    }, 300); // Aspetta 300ms prima di inviare la richiesta
+}
+
+function selectSuggestion(blueprintId) {
+    // Reindirizza alla pagina delle carte con il blueprintId come parametro
+    window.location.href = `/cards?blueprint_id=${blueprintId}`;
+}

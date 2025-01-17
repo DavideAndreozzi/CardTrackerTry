@@ -44,7 +44,7 @@ public class CardScheduler {
                 // Controlla se la carta non è già stata acquistata (--> implementare quantità)
                 if (!carta.getCarta_acquistata()) {
                     double prezzoDesiderato = carta.getPrezzo_desiderato(); // Prezzo desiderato
-                    MarketplaceProduct prodotto = cardService.getLowestPrice(carta.getId_carta(),carta.getLanguage(),carta.getCardCondition()); // Ottiene il prodotto più economico in base a lingua e cond
+                    MarketplaceProduct prodotto = cardService.getLowestPrice(carta.getId_carta(),carta.getLanguage(),carta.getCardCondition(), carta.isFoil()); // Ottiene il prodotto più economico in base a lingua e cond
                     Price prezzoRaw = prodotto.getPrice();
                     double prezzo = prezzoRaw.getCents() / 100.0;
                     if (prezzo <= prezzoDesiderato) {
@@ -55,14 +55,14 @@ public class CardScheduler {
                         }
 
                         // Esegue l'acquisto del prodotto
-                        cardService.buyProduct(authToken, prodotto.getId(), nomeCognome,
-                                utente.getVia(), utente.getZip(), utente.getCitta(),
-                                utente.getProvincia(), utente.getPaese(),
-                                utente.getNumeroTelefono());
+                        // cardService.buyProduct(authToken, prodotto.getId(), nomeCognome,
+                        //         utente.getVia(), utente.getZip(), utente.getCitta(),
+                        //         utente.getProvincia(), utente.getPaese(),
+                        //         utente.getNumeroTelefono());
 
                         // Segna la carta come acquistata
-                        carta.setCarta_acquistata(true);
-                        cartaDAO.save(carta); // Salva le modifiche della carta
+                        // carta.setCarta_acquistata(true);
+                        // cartaDAO.save(carta); // Salva le modifiche della carta
                     }
                 }
             }

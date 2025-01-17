@@ -36,6 +36,11 @@
         <input type="text" id="search-bar" placeholder="Cerca" oninput="filterItems()">
         <!--<button id="search-btn" onclick="filterItems()" >Cerca</button>-->
 	</div>
+
+    <div class="search-bar">
+        <input type="text" id="searchInput" placeholder="Enter card name" oninput="fetchSuggestions()">
+        <div class="suggestions" id="suggestions"></div>
+    </div>
 	
 	<div id="content">
 		<!-- visualizzazione della lista delle espansioni -->

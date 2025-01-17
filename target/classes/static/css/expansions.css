@@ -282,3 +282,38 @@ a {
 		margin: 0 10px;
 	}
 }
+
+.search-bar {
+	position: relative;
+	margin: 20px;
+}
+
+.search-bar input[type="text"] {
+	width: 300px;
+	padding: 10px;
+	border: 1px solid #ccc;
+	border-radius: 4px;
+}
+
+.suggestions {
+	position: absolute;
+	top: 40px;
+	left: 0;
+	width: 300px;
+	border: 1px solid #ccc;
+	border-radius: 4px;
+	background: #fff;
+	box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+	max-height: 200px;
+	overflow-y: auto;
+	z-index: 10;
+}
+
+.suggestions div {
+	padding: 10px;
+	cursor: pointer;
+}
+
+.suggestions div:hover {
+	background-color: #f0f0f0;
+}
